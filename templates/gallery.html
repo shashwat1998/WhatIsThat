@@ -121,8 +121,20 @@ div.desc {
     <a target="_blank" href="{{url_for('send_image', image_id=data_name.id)}}">
       <img src="{{url_for('send_image', image_id=data_name.id)}}" width="600" height="400">
     </a>
-
-    <div class="desc" style="color: white">{{ data_name.filename }}</div>
+    <div class="desc" style="color: white">
+        <table style="width:100%">
+      <tr>
+        <th>Object Detected</th>
+        <th>Probability</th>
+      </tr>
+     {% for result in data_name.results %}
+      <tr>
+        <td>{{ result.object_name }}</td>
+        <td>{{ result.object_probability }}</td>
+      </tr>
+         {% endfor %}
+    </table>
+    </div>
   </div>
 </div>
 {% endfor %}
