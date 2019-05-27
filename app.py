@@ -1,4 +1,5 @@
 import os
+import detect
 from io import BytesIO
 
 from flask import Flask, render_template, request, send_from_directory, send_file
@@ -7,6 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 
 
 class FileContents(db.Model):
@@ -31,15 +34,22 @@ def index():
 @app.route("/upload", methods=['POST'])
 def upload_image_method():
     count = 0
+    target = os.path.join(APP_ROOT, 'images/')
+    print(target)
+
+    if not os.path.isdir(target):
+        os.mkdir(target)
+
     for upload_file in request.files.getlist("file"):
         filename = upload_file.filename
-        binary_data = upload_file.read()
+        destination = "".join([target, filename])
+        print(destination)
+        upload_file.save(destination)
+        binary_data = open(destination, 'rb').read()
         new_file = FileContents(filename=filename, image_data=binary_data)
         db.session.add(new_file)
         db.session.commit()
-        list_returned = [[('n02124075', 'Egyptian_cat', 0.84743756), ('n02441942', 'weasel', 0.035382476),
-                          ('n02123045', 'tabby', 0.031043062), ('n02123159', 'tiger_cat', 0.017164368),
-                          ('n02443484', 'black-footed_ferret', 0.015669418)]]
+        list_returned = detect.classify(filename)
         for i in range(5):
             new_data = ObjectDetected(object_name=list_returned[0][i][1],
                                       object_probability=list_returned[0][i][2],
@@ -63,12 +73,6 @@ def send_image(image_id):
     print(type(file_data))
     return send_file(BytesIO(file_data.image_data), attachment_filename=file_data.filename, mimetype='image/jpeg')
 
-"""
-@app.route('/data/<image_id>')
-def send_data(image_id):
-    file_data = FileContents.query.filter_by(id=image_id).first()
-    return file_data.results
-"""
 
 @app.route('/about')
 def about():
