@@ -31,7 +31,8 @@ def index():
 
 @app.route("/upload", methods=['POST'])
 def upload_image_method():
-    Detect.prepare()
+    detect1 = Detect()
+    detect1.prepare()
     count = 0
     target = os.path.join(APP_ROOT, 'images/')
     print(target)
@@ -48,7 +49,7 @@ def upload_image_method():
         new_file = FileContents(filename=filename, image_data=binary_data)
         db.session.add(new_file)
         db.session.commit()
-        list_returned = Detect.classify(filename)
+        list_returned = detect1.classify(filename)
         for i in range(5):
             new_data = ObjectDetected(object_name=list_returned[0][i][1],
                                       object_probability=list_returned[0][i][2],
