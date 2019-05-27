@@ -6,4 +6,3 @@ Werkzeug==0.15.2
 Jinja2==2.10.1
 gunicorn==19.6.0
 tensorflow==1.13.1
-matplotlib==3.0.2
