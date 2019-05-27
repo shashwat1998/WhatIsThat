@@ -6,11 +6,9 @@ from flask import Flask, render_template, request, send_from_directory, send_fil
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config.from_object('config')
 db = SQLAlchemy(app)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-
 
 class FileContents(db.Model):
     id = db.Column(db.Integer, primary_key=True)
