@@ -1,5 +1,5 @@
 import os
-from detect import Detect
+import detect
 from io import BytesIO
 
 from flask import Flask, render_template, request, send_from_directory, send_file
@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 
 class FileContents(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,8 +32,6 @@ def index():
 
 @app.route("/upload", methods=['POST'])
 def upload_image_method():
-    detect1 = Detect()
-    detect1.prepare()
     count = 0
     target = os.path.join(APP_ROOT, 'images/')
     print(target)
@@ -49,7 +48,7 @@ def upload_image_method():
         new_file = FileContents(filename=filename, image_data=binary_data)
         db.session.add(new_file)
         db.session.commit()
-        list_returned = detect1.classify(filename)
+        list_returned = detect.classify(filename)
         for i in range(5):
             new_data = ObjectDetected(object_name=list_returned[0][i][1],
                                       object_probability=list_returned[0][i][2],
