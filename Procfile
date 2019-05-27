@@ -1,1 +1,1 @@
-web:gunicorn identify:app
+web:gunicorn app:index
