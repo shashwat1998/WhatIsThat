@@ -21,13 +21,13 @@ body {
 
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: #000000;
   padding: 20px 10px;
 }
 
 .header a {
   float: left;
-  color: black;
+  color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -42,7 +42,7 @@ body {
 }
 
 .header a:hover {
-  background-color: #ddd;
+  background-color: #777777;
   color: black;
 }
 
@@ -69,9 +69,9 @@ body {
 </style>
 
 </head>
-<body style="background: black;">
+<body style="background-color: lightgray">
 <div class="header">
-  <a href="#default" class="logo" >IDENTIFY!!</a>
+  <a href="{{ url_for('index') }}" class="logo" style="font-size: xx-large" >What's that?</a>
   <div class="header-right">
     <a class="active" href="{{ url_for('index') }}">Upload</a>
     <a href="{{ url_for('get_gallery') }}">Gallery</a>
@@ -82,22 +82,22 @@ body {
 <h3 style="display: inline-block;
     padding: 12px 30px;
     text-align: center;
-    background: dodgerblue;
-    color: white;
+    color: black;
+
     margin: 0;
     box-sizing: border-box;
     width: 100%;
     transition: all .4s;
-">Upload Images To Identify</h3>
+">Upload your images to find out what these objects are!</h3>
+<br>
+<br>
  <form id="upload-form" action="{{ url_for('upload_image_method') }}" method="POST" enctype="multipart/form-data">
+
      <input type="file" name="file" value="choose" id="imageUpload" accept=".png, .jpg, .jpeg" multiple="multiple"
-            style="
-            width: 100%;
-            padding: 10px;
-            background-color:black;
-            text-align: center;
-            color: white;" >
-     <div  style="text-align: center; background: black;"><button type="submit"  class="btn btn-primary btn-lg " id="btn-predict">Upload</button></div>
+            style="width: 100%; padding: 10px; text-align: center; color: black;" >
+     <br>
+     <br>
+     <div  style="text-align: center;"><button type="submit"  class="btn btn-primary btn-lg " id="btn-predict">Upload</button></div>
 </form>
 </body>
 </html>

@@ -14,7 +14,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 class FileContents(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(100), unique=True, nullable=False)
-    image_data =db.Column(db.LargeBinary)
+    image_data = db.Column(db.LargeBinary)
     results = db.relationship('ObjectDetected',backref='image')
 
 

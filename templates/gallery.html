@@ -12,13 +12,13 @@ body {
 
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: black;
   padding: 20px 10px;
 }
 
 .header a {
   float: left;
-  color: black;
+  color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -33,7 +33,7 @@ body {
 }
 
 .header a:hover {
-  background-color: #ddd;
+  background-color: #777777;
   color: black;
 }
 
@@ -105,23 +105,23 @@ div.desc {
 }
 </style>
 </head>
-<body style="background: black;">
+<body style="background-color: lightgray">
 <div class="header">
-  <a href="#default" class="logo">Identify!!</a>
+  <a href="{{ url_for('index') }}" class="logo" style="font-size: xx-large" >What's that?</a>
   <div class="header-right">
     <a href="{{ url_for('index') }}">Upload</a>
     <a class="active" href="{{ url_for('get_gallery') }}">Gallery</a>
     <a href="{{ url_for('about') }}">About</a>
   </div>
 </div>
-<h2>Image Gallery With Results</h2>
+<h2 style="text-align: center">Image Gallery With Results</h2>
 {% for data_name in table_list %}
 <div class="responsive">
   <div class="gallery">
     <a target="_blank" href="{{url_for('send_image', image_id=data_name.id)}}">
       <img src="{{url_for('send_image', image_id=data_name.id)}}" width="600" height="400">
     </a>
-    <div class="desc" style="color: white">
+    <div class="desc" style="color: black">
         <table style="width:100%">
       <tr>
         <th>Object Detected</th>
