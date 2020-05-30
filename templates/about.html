@@ -13,13 +13,13 @@ body {
 
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: black;
   padding: 20px 10px;
 }
 
 .header a {
   float: left;
-  color: black;
+  color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -34,7 +34,7 @@ body {
 }
 
 .header a:hover {
-  background-color: #ddd;
+  background-color: #777777;
   color: black;
 }
 
@@ -62,7 +62,7 @@ body {
 </head>
 <body style="background: lightgray">
 <div class="header">
-  <a href="#default" class="logo">Identify!!</a>
+  <a href="{{ url_for('index') }}" style="font-size: xx-large;" class="logo">What's That?</a>
   <div class="header-right">
     <a href="{{ url_for('index') }}">Upload</a>
     <a href="{{ url_for('get_gallery') }}">Gallery</a>
